@@ -81,10 +81,15 @@ const login = async( req , res = response ) => {
     }
 };
 
-const revalidateToken = ( req , res ) => {
+const revalidateToken = async( req , res ) => {
+    const { uid, name } = req;
+    // Generate web token
+    const token = await generateJWT( uid, name );
     return res.json({
         ok: true,
-        msg: 'Validate token'
+        uid,
+        name,
+        token
     });
 };
 
