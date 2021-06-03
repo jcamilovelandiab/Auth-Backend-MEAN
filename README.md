@@ -1,6 +1,6 @@
 # Auth-Backend-MEAN
 
-MongoDB
-ExpressJS
-Angular
-NodeJS
+- MongoDB
+- ExpressJS
+- Angular
+- NodeJS
