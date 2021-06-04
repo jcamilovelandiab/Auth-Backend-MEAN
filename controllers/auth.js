@@ -33,6 +33,7 @@ const createUser = async( req , res ) => {
             ok: true,
             uid: dbUser.id,
             name,
+            email: dbUser.email,
             token
         });
     } catch ( error ) {
@@ -70,6 +71,7 @@ const login = async( req , res = response ) => {
             ok: true,
             uid:  dbUser.id,
             name: dbUser.name,
+            email: dbUser.email,
             token
         });
     } catch ( error ) {
@@ -82,13 +84,16 @@ const login = async( req , res = response ) => {
 };
 
 const revalidateToken = async( req , res ) => {
-    const { uid, name } = req;
+    const { uid } = req;
+    const dbUser = await User.findById( uid );
+
     // Generate web token
-    const token = await generateJWT( uid, name );
+    const token = await generateJWT( uid, dbUser.name );
     return res.json({
         ok: true,
         uid,
-        name,
+        name: dbUser.name,
+        email: dbUser.email,
         token
     });
 };
